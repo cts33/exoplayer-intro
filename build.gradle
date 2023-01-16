@@ -1,7 +1,7 @@
 buildscript {
     project.ext {
         compileSdkVersion = 32
-        minSdkVersion = 16
+        minSdkVersion = 20
         targetSdkVersion = 32
         buildToolsVersion = "30.0.3"
 
@@ -9,6 +9,11 @@ buildscript {
     }
 
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+
         mavenCentral()
         google()
     }
@@ -20,6 +25,11 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+
         mavenCentral()
         google()
     }

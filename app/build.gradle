@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.exoplayercodelab"
-        minSdkVersion 16
+        minSdkVersion 20
         targetSdkVersion 32
         versionCode 1
         versionName "1.0"
@@ -14,8 +14,8 @@ android {
         multiDexEnabled true
     }
 	compileOptions {
-		sourceCompatibility 1.8
-		targetCompatibility 1.8
+		sourceCompatibility 11
+		targetCompatibility 11
 	}
 	buildTypes {
         release {
@@ -27,6 +27,7 @@ android {
 
 dependencies {
     // Switch out the code lab step to jump to different points in the code lab
-    implementation project(':exoplayer-codelab-00')
+//    implementation project(':exoplayer-codelab-00')
+    implementation project(':exoplayer-codelab-03')
     implementation 'androidx.multidex:multidex:2.0.1'
 }
