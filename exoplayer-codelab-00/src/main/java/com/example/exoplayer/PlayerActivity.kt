@@ -24,8 +24,6 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 
 /**
@@ -33,10 +31,11 @@ import com.google.android.exoplayer2.util.Util
  */
 class PlayerActivity : AppCompatActivity() {
     private lateinit var player: SimpleExoPlayer
-    private  val TAG = "PlayerActivity"
+    private val TAG = "PlayerActivity"
     private var playWhenReady = true
     private var currentWindow = 0
     private var playbackPosition = 0L
+
     private val viewBinding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityPlayerBinding.inflate(layoutInflater)
     }
@@ -53,12 +52,15 @@ class PlayerActivity : AppCompatActivity() {
             }
             Log.d(TAG, "changed state to $stateString")
         }
+
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
-        initializePlayer()
+
     }
+
     private fun initializePlayer() {
 //        val trackSelector = DefaultTrackSelector(this).apply {
 //            setParameters(buildUponParameters().setMaxVideoSizeSd())
@@ -68,25 +70,28 @@ class PlayerActivity : AppCompatActivity() {
             .build()
             .also { exoPlayer ->
                 viewBinding.videoView.player = exoPlayer
-
+                // 视频流
 //                val mediaItem = MediaItem.Builder()
 //                    .setUri(getString(R.string.media_url_dash))
 //                    .setMimeType(MimeTypes.APPLICATION_MPD)
 //                    .build()
-                val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp4))
+                // mp4格式
+                val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp4_2))
+                //添加资源
                 exoPlayer.addMediaItem(mediaItem)
 
+                // mp3格式
 //                val secondMediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3));
 //                exoPlayer.addMediaItem(secondMediaItem);
                 exoPlayer.playWhenReady = playWhenReady
                 exoPlayer.seekTo(currentWindow, playbackPosition)
+                // 添加监听器
                 exoPlayer.addListener(playbackStateListener)
+                //预准备
                 exoPlayer.prepare()
             }
-//        exoPlayer.playWhenReady = playWhenReady
-//        exoPlayer.seekTo(currentWindow, playbackPosition)
-//        exoPlayer.prepare()
     }
+
     public override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24) {
@@ -101,6 +106,7 @@ class PlayerActivity : AppCompatActivity() {
             initializePlayer()
         }
     }
+
     private fun hideSystemUi() {
         viewBinding.videoView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -109,6 +115,7 @@ class PlayerActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
+
     public override fun onPause() {
         super.onPause()
         if (Util.SDK_INT < 24) {
@@ -122,6 +129,7 @@ class PlayerActivity : AppCompatActivity() {
             releasePlayer()
         }
     }
+
     private fun releasePlayer() {
         player?.run {
             playbackPosition = this.currentPosition

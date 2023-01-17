@@ -83,17 +83,17 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun initializePlayer() {
-        val trackSelector = DefaultTrackSelector(this).apply {
-            setParameters(buildUponParameters().setMaxVideoSizeSd())
-        }
+//        val trackSelector = DefaultTrackSelector(this).apply {
+//            setParameters(buildUponParameters().setMaxVideoSizeSd())
+//        }
         player = ExoPlayer.Builder(this)
-            .setTrackSelector(trackSelector)
+//            .setTrackSelector(trackSelector)
             .build()
             .also { exoPlayer ->
                 viewBinding.videoView.player = exoPlayer
 
                 val mediaItem = MediaItem.Builder()
-                    .setUri(getString(R.string.media_url_dash))
+                    .setUri(getString(R.string.media_url_mp4))
                     .setMimeType(MimeTypes.APPLICATION_MPD)
                     .build()
                 exoPlayer.setMediaItem(mediaItem)
